@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -7,18 +8,19 @@ class NetworkHelper {
   final String url;
   late dynamic decodedData;
 
-  Future getData() async {
+  Future<dynamic> getData() async {
     final encoded = Uri.parse(url);
 
     final response = await http.get(encoded);
-    print(response.body);
+    debugPrint(response.body.toString());
 
     if (response.statusCode == 200) {
       String data = response.body;
 
       return jsonDecode(data);
     } else {
-      print(response.statusCode);
+      debugPrint(response.statusCode.toString());
+      return null;
     }
   }
 }
